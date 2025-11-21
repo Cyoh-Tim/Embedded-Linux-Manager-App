@@ -29,3 +29,47 @@
 
 * **Process Logic (`*_manager_proc.c`):** IPC 메시지를 받고 `switch-case`를 통해 명령을 해석하는 역할.
 * **Hardware Abstraction Layer (HAL) (`*_manager.c`):** 실제 드라이버 호출(예시에서는 `printf`로 대체하나 구현한다면 주석으로 구현될 예정)을 담당. 로직과 하드웨어를 분리하여 테스트와 가독성을 높이는 목적.
+
+## 🚀 Build & Run
+
+이 프로젝트는 파일이 점차 증가함에 따라 **Makefile**을 사용하여 빌드 및 관리됩니다.
+
+### 1. 빌드 환경
+
+이 프로젝트를 빌드하고 실행하려면 아래 패키지가 설치되어야합니다.
+
+* **GNU Compiler Collection (GCC)**
+* **GNU Make** (Makefile 실행을 위해 필수)
+
+```
+sudo apt update
+sudo apt install build-essential
+```
+
+### 2. 프로젝트 빌드
+
+프로젝트 루트 디렉토리(Makefile이 있는 곳)에서 `make` 명령을 실행하여 모든 실행 파일을 빌드합니다. `make`는 `ipc.key` 파일 생성도 함께 처리합니다.
+```
+make
+```
+### 3. 클린 (Clean)
+
+빌드된 모든 실행 파일과 IPC 설정 파일을 삭제하여 빌드 전의 상태로 되돌립니다.
+```
+make clean
+```
+### 4. 실행
+
+빌드가 완료되면, 메인 프로세스인 `main`(main_ipc.c)를 실행합니다. `main_ipc`는 **Supervisor** 역할을 하며 `fork()/exec()`를 통해 나머지 모든 매니저 프로세스를 자동으로 구동하고 감시합니다.
+
+```
+./main
+```
+
+
+### 5. IPC 설정 파일 (`ipc.key`)
+
+**`ipc.key`** 파일은 메시지 큐에서 고유 키값을 얻기 위한 `ftok()`함수가 참조하는 파일입니다.
+
+* **생성:** `Makefile`에 해당 생성 명령어 포함되어 있어, `make` 실행 시 자동으로 `touch ipc.key` 명령을 통해 생성됩니다.
+* **삭제:** `make clean` 명령 실행 시 실행 파일들과 함꼐 삭제됩니다.
