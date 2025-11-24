@@ -17,7 +17,8 @@ const char* manager_exec_names[NUM_MANAGERS] = {
     LED_MANAGER_EXEC,
     MOTOR_MANAGER_EXEC,
     STATE_MANAGER_EXEC,
-    POWER_MANAGER_EXEC 
+    POWER_MANAGER_EXEC,
+    DISPLAY_MANAGER_EXEC
 };
 
 // 프로세스 감시 및 재시작 위한 PID 저장 인덱스
@@ -130,6 +131,7 @@ int main() {
     // 4. 부팅 완료 신호 전송 (STATE 매니저에게 총괄 시작을 알림)
     // common_ipc.c의 헬퍼 함수 사용
     send_ipc_message(msgid, TYPE_STATE_MANAGER, CMD_BOOT_SEQUENCE, "boot_done");
+    send_ipc_message(msgid, TYPE_DISPLAY_MANAGER, CMD_BOOT_SEQUENCE, "boot_done");
     
     LOG_INFO("Sent 'boot_done'. System operational.");
     LOG_INFO("System running. Press Ctrl+C to stop.");

@@ -22,6 +22,7 @@ typedef enum {
     TYPE_MOTOR_MANAGER,
     TYPE_STATE_MANAGER,
     TYPE_POWER_MANAGER,
+    TYPE_DISPLAY_MANAGER,
     TYPE_MANAGER_MAX    // MANAGER 메시지 타입 마지막 enum, TYPE_MANAGER_MAX - 1 값으로 메시지 타입 개수를 알 수 있음
 } ManagerType;
 
@@ -55,6 +56,7 @@ typedef enum {
 #define MOTOR_MANAGER_EXEC    "./motor_manager_proc"
 #define STATE_MANAGER_EXEC    "./state_manager_proc"
 #define POWER_MANAGER_EXEC    "./power_manager_proc"
-#define NUM_MANAGERS          4 
+#define DISPLAY_MANAGER_EXEC      "./display_manager_proc"
+#define NUM_MANAGERS          5
 
 #endif // COMMON_IPC_H
